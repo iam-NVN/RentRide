@@ -28,11 +28,13 @@ Experience the future of car rentals with RentRide – a game-changing concept f
  - Users can rent a car for a **maximum period of 240 hours** (10 days) from the time of pick-up.
  - A **penalty of ₹800** will be charged for each day the car is **delayed** beyond the scheduled return date.
  - Users have the option to **pay the rental charges at the time of returning** the car. The rental charges will include the **base rental fee for the duration of the rental** and any **penalties** for delayed returns.
-2.  User Dashboard:
-    -   Users can view their rented cars and rental history.
-    -   Profile information such as username, rental count, and total amount spent is displayed.
-    -   Rental calculations are done automatically based on the rental duration.
-    -   Penalty charges are added automatically for delayed returns.
+ - Rental **Charges are calculated automatically in real time** based on the time from rental.
+##### c)  User Dashboard:
+ - Users can view the **details of the car they rented** and their **history**.
+ - Users can view **profile information**.
+ - Users can view statistics like **Total Amount Spent** on the Platform, **Total Cars Rented** on the Platform.
+ 
+ #### 3. Partners:
 3.  Partner Login:
     -   Partners can log in with their credentials.
     -   They can add their cars for rent, providing detailed information such as brand, model, year, transmission, fuel type, and pricing.
