@@ -1,21 +1,21 @@
 CREATE DATABASE IF NOT EXISTS rentride;
-USE `rentride`;
+USE rentride;
 
-CREATE TABLE `cars` (
-  `CID` varchar(12) NOT NULL,
-  `Brand` varchar(80) NOT NULL,
-  `Model` varchar(80) NOT NULL,
-  `Type` varchar(80) NOT NULL,
-  `Fuel` varchar(15) NOT NULL,
-  `seating` int(20) NOT NULL,
-  `Transmission` varchar(10) NOT NULL,
-  `Rate` float NOT NULL,
-  `PID` varchar(12) NOT NULL,
-  `location_id` varchar(10) NOT NULL,
-  `available` int(11) NOT NULL DEFAULT 1
+CREATE TABLE cars (
+  CID varchar(12) NOT NULL PRIMARY KEY,
+  Brand varchar(80) NOT NULL,
+  Model varchar(80) NOT NULL,
+  Type varchar(80) NOT NULL,
+  Fuel varchar(15) NOT NULL,
+  seating int(20) NOT NULL,
+  Transmission varchar(10) NOT NULL,
+  Rate float NOT NULL,
+  PID varchar(12) NOT NULL,
+  location_id varchar(10) NOT NULL,
+  available int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `cars` (`CID`, `Brand`, `Model`, `Type`, `Fuel`, `seating`, `Transmission`, `Rate`, `PID`, `location_id`, `available`) VALUES
+INSERT INTO cars (CID, Brand, Model, Type, Fuel, seating, Transmission, Rate, PID, location_id, available) VALUES
 ('155212173117', 'Volvo', 'S90', 'Sedan', 'Petrol', 5, 'Automatic', 472, '458217479907', 'Coimbatore', 1),
 ('172873560516', 'Lamborghini', 'Urus', 'SUV', 'Petrol', 5, 'Automatic', 929, '458217479907', 'Coimbatore', 1),
 ('181023893406', 'Porsche', '718 Boxster', 'Sports', 'Petrol', 2, 'Automatic', 916, '458217479908', 'Coimbatore', 1),
@@ -55,20 +55,20 @@ INSERT INTO `cars` (`CID`, `Brand`, `Model`, `Type`, `Fuel`, `seating`, `Transmi
 ('995060835728', 'Volvo', 'XC90', 'SUV', 'Petrol', 7, 'Automatic', 480, '458217479907', 'Coimbatore', 1),
 ('999507381291', 'Porsche', '911 GT3', 'Sports', 'Petrol', 2, 'Automatic', 916, '458217479908', 'Coimbatore', 1);
 
-CREATE TABLE `rentstats` (
-  `UID` varchar(12) NOT NULL,
-  `CID` varchar(12) NOT NULL,
-  `OID` varchar(12) NOT NULL,
-  `Rent_Begin` varchar(11) NOT NULL,
-  `Rent_End` varchar(11) NOT NULL,
-  `Rent_Time` varchar(30) NOT NULL,
-  `Price` bigint(225) NOT NULL,
-  `Penalty` bigint(225) NOT NULL,
-  `Total` bigint(100) NOT NULL,
-  `Status` varchar(10) NOT NULL DEFAULT '0'
+CREATE TABLE rentstats (
+  UID varchar(12) NOT NULL,
+  CID varchar(12) NOT NULL,
+  OID varchar(12) NOT NULL PRIMARY KEY,
+  Rent_Begin varchar(11) NOT NULL,
+  Rent_End varchar(11) NOT NULL,
+  Rent_Time varchar(30) NOT NULL,
+  Price bigint(225) NOT NULL DEFAULT 0,
+  Penalty bigint(225) NOT NULL DEFAULT 0,
+  Total bigint(100) NOT NULL DEFAULT 0,
+  Status varchar(10) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `rentstats` (`UID`, `CID`, `OID`, `Rent_Begin`, `Rent_End`, `Rent_Time`, `Price`, `Penalty`, `Total`, `Status`) VALUES
+INSERT INTO rentstats (UID, CID, OID, Rent_Begin, Rent_End, Rent_Time, Price, Penalty, Total, Status) VALUES
 ('458217479902', '646485892394', '037924402212', '1691324069', '1691367268', '12', 11868, 0, 0, '0'),
 ('458217479902', '369078223827', '1T1MKHZAW4L5', '1688827296', '1688870494', '12', 850, 0, 17618, '1'),
 ('458217479902', '369078223827', '279964355338', '1688735849', '1688294000', '72', 850, 0, 50, '1'),
@@ -82,17 +82,17 @@ INSERT INTO `rentstats` (`UID`, `CID`, `OID`, `Rent_Begin`, `Rent_End`, `Rent_Ti
 ('458217479902', '369078223828', 'RWQWCPH585QJ', '1688827193', '1689086390', '72', 850, 21250, 594655, '1'),
 ('458217479902', '369078223828', 'Z4V3CSRGOGNL', '1688827316', '1688870514', '12', 850, 22950, 596325, '1');
 
-CREATE TABLE `users` (
-  `UID` varchar(12) NOT NULL,
-  `type` varchar(15) NOT NULL,
-  `username` varchar(18) NOT NULL,
-  `passwd` varchar(18) NOT NULL,
-  `name` varchar(80) NOT NULL,
-  `location_id` varchar(10) NOT NULL,
-  `suspended` int(11) NOT NULL DEFAULT 0
+CREATE TABLE users (
+  UID varchar(12) NOT NULL PRIMARY KEY,
+  type varchar(15) NOT NULL,
+  username varchar(18) NOT NULL UNIQUE,
+  passwd varchar(18) NOT NULL,
+  name varchar(80) NOT NULL,
+  location_id varchar(10) NOT NULL,
+  suspended int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `users` (`UID`, `type`, `username`, `passwd`, `name`, `location_id`, `suspended`) VALUES
+INSERT INTO users (UID, type, username, passwd, name, location_id, suspended) VALUES
 ('458217479901', 'partner', 'fin', 'fin', 'Signature Cars', 'Coimbatore', 0),
 ('458217479902', 'user', 'muz', 'muz', 'Muz', 'Coimbatore', 0),
 ('458217479903', 'partner', 'srt', 'srt', 'SRT Automobiles', 'Coimbatore', 0),
@@ -101,15 +101,3 @@ INSERT INTO `users` (`UID`, `type`, `username`, `passwd`, `name`, `location_id`,
 ('458217479907', 'partner', 'zhrc', 'zhrc', 'ZHR Coimbatore', 'Coimbatore', 0),
 ('458217479908', 'partner', 'm4ic', 'm4ic', 'M4i Cars', 'Coimbatore', 0),
 ('458217479969', 'admin', 'admin', 'admin', 'Admin', 'Coimbatore', 0);
-
-
-ALTER TABLE `cars`
-  ADD PRIMARY KEY (`CID`);
-
-ALTER TABLE `rentstats`
-  ADD PRIMARY KEY (`OID`);
-
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`UID`),
-  ADD UNIQUE KEY `username` (`username`);
-COMMIT;
