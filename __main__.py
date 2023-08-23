@@ -7,10 +7,6 @@ from colorama import Fore, Style, init
 
 init() #Initialise Colorama Module
 
-#TO-DO:
-# Edit Location
-
-
 ##=======[GLOBAL VARIABLES]=========##
 uid = ''
 userInfo = ()
@@ -565,7 +561,7 @@ def partnerEditCars():
         print(Style.BRIGHT +Fore.CYAN+"[+] Model : "+cmodel)
         print(Style.BRIGHT +Fore.CYAN+"[+] Type : "+ctype)
         print(Style.BRIGHT +Fore.CYAN+"[+] Fuel : "+ccfuel)
-        print(Style.BRIGHT +Fore.CYAN+"[+] Seating Capacity : "+cseating)
+        print(Style.BRIGHT +Fore.CYAN+"[+] Seating Capacity : "+str(cseating))
         print(Style.BRIGHT +Fore.CYAN+"[+] Transmission : "+cctrans)
         print(Style.BRIGHT +Fore.CYAN+"[+] Rate per hour : ₹"+str(crate))
         print(Style.BRIGHT +Fore.CYAN+"[+] Location : "+ccity)
@@ -603,7 +599,7 @@ def partnerRentalRecords():
   print(tabulate.tabulate(hisdata, headers=history_headers, tablefmt="rounded_grid", disable_numparse=True))
   
   a = input(Style.BRIGHT +Fore.CYAN +"\n> Press Enter to go back")
-  menu()
+  partnerMenu()
   
 def partnerAddCar():
     Banner()
@@ -801,7 +797,7 @@ def partnerTerms():
   print(Style.BRIGHT +Fore.CYAN+"\n[+] "+Fore.GREEN+"Insurance:"+Style.BRIGHT +Fore.CYAN+"  Partners should have valid insurance coverage for their cars. The platform may require proof of \ninsurance before allowing the car to be listed.")
   print(Style.BRIGHT +Fore.CYAN+"\n[+] "+Fore.GREEN+"Prohibited Use:"+Style.BRIGHT +Fore.CYAN+" Partners should inform renters about any prohibited uses of their cars, such as smoking, \ntransporting pets, or off-road driving.")
   a = input(Style.DIM+Fore.CYAN +"\n\n> Press Enter to go back")
-  menu()
+  partnerMenu()
 
 
 ##=======[ADMIN FUNCTIONS]=========##       
