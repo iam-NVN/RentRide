@@ -12,7 +12,7 @@ def add_hours_to_utc(hrs):
 conn = sqlpy.connect(
   host ="localhost",
   user ="root",
-  passwd ="",
+  passwd ="vivekam",
   database = 'rentride'
 )
 
@@ -153,7 +153,6 @@ def getUsers():
         return False
     
 def getPartners():
-    try:
         cursor.execute(
         'SELECT * FROM users WHERE type = "partner"'
         )
@@ -163,8 +162,6 @@ def getPartners():
             stats = getPartnerStats(x[0])
             usersdb.append([x,stats[0],stats[1],"₹"+str(stats[3])])
         return usersdb
-    except:
-        return False
     
 def getPartnerCars(uid):
     try:
@@ -181,7 +178,7 @@ def addPartnerCar(brand,model,ctype,fuel,seater,transmission,rate,city,uid):
     cid = uid_gen(12)
     try:
         cursor.execute(
-        'INSERT INTO cars VALUES("{cid}","{brand}","{model}","{ctype}","{fuel}",{seating},"{transmission}","{rate}","{pid}","{location}")'
+        'INSERT INTO cars VALUES("{cid}","{brand}","{model}","{ctype}","{fuel}",{seating},"{transmission}","{rate}","{pid}","{location}",1)'
         .format(cid=cid,brand=brand,model=model,seating=seater,ctype=ctype,fuel=fuel,transmission=transmission,rate=rate,pid=uid,location=city)
         )
         conn.commit()
@@ -189,6 +186,8 @@ def addPartnerCar(brand,model,ctype,fuel,seater,transmission,rate,city,uid):
     except Exception as e:
         print(e)
         return False
+
+
 
 def editPartnerCar(cid,brand,model,ctype,fuel,seating,transmission,rate,city):
     try:
@@ -214,7 +213,6 @@ def deletePartnerCar(cid):
         return False
 
 def getPartnerStats(uid):
-    try:
         cursor.execute(
         'SELECT CID FROM cars WHERE PID = "{uid}"'
         .format(uid=uid)
@@ -229,7 +227,7 @@ def getPartnerStats(uid):
             return [0,0,0,0]
         
         cursor.execute(
-        'SELECT COUNT(*),SUM(total) FROM rentstats WHERE CID in {carids}'
+        'SELECT COUNT(*),IFNULL(SUM(total),0)  FROM rentstats WHERE CID in {carids}'
         .format(carids=str(carids).replace('[','(').replace(']',')'))
         )
         tt = cursor.fetchone()
@@ -243,8 +241,6 @@ def getPartnerStats(uid):
         carsonrent = cursor.fetchone()[0]
         
         return [totalcars,rentalcount,carsonrent,totalincome]
-    except:
-        return False
 
 def getAdminStats():
     try:
@@ -490,4 +486,3 @@ def returnCar(cid,uid,oid,price,penalty):
     except Exception as e:
         print(e)
         return False
- 
